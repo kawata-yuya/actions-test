@@ -1,6 +1,5 @@
 # ワークフロー名
 name: test_line_notify
-
 # 実行タイミング
 on:
  push:
@@ -18,21 +17,12 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.9
-      - name: Install dependencies
-        run: |
-          # pip更新
-          #python -m pip install --upgrade pip
-          # 必要なパッケージインストール
-          #pip install bs4
-          #pip install requests
       - name: Run script
         run: |
           # main.pyの実行
-          python main.py 
-            - run: git config --local user.email "kawatayuya@icloud.com"
-      - run: git config --local user.name "kawata-yuya-bot"
-      - run: git add data.txt
-      - run: git commit -m "Update data.txt"
-      - uses: ad-m/github-push-action@v0.6.0
+          python main.py
+      -name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          name: my-artifact
+          path: data.txt
